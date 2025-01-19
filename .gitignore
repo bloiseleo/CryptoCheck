@@ -1,0 +1,6 @@
+bin
+obj
+database.db
+.vs
+chrome
+chromedriver_win32

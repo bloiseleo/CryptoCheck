@@ -1,0 +1,28 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Data.Sqlite" Version="9.0.1" />
+    <PackageReference Include="Selenium.WebDriver" Version="4.27.0" />
+  </ItemGroup>
+  <ItemGroup>
+	<ChromeExecutable Include="chrome\**\*.*" />
+	<ChromeDriver Include="chromedriver_win32/**/*.*" />
+	<Migrations Include="Migrations/**/*.*"></Migrations>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+  <Target Name="Teste" AfterTargets="Build">
+	  <Message Text="Copying Chrome executable located at @(ChromeExecutable) to $(OutputPath) " Importance="high" />
+	  <Copy SourceFiles="@(ChromeExecutable)" DestinationFolder="$(OutputPath)\chrome\%(RecursiveDir)" ContinueOnError="false"></Copy>
+	  <Message Text="Copying Chrome Driver executable located at @(ChromeDriver) to $(OutputPath) " Importance="high" />
+	  <Copy SourceFiles="@(ChromeDriver)" DestinationFolder="$(OutputPath)\chromedriver_win32\%(RecursiveDir)"></Copy>
+	  <Message Text="Copying Migrations located at @(Migrations) to $(OutputPath)" Importance="high" />
+	  <Copy SourceFiles="@(Migrations)" DestinationFolder="$(OutputPath)\Migrations\%(RecursiveDir)"></Copy>
+  </Target>
+</Project>
